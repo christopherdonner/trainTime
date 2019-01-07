@@ -29,15 +29,16 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-
+/*
 database.ref().on("value", function(snapshot) {
 train.Name=snapshot.val().trainName;
 })
-
+*/
 
 //$("#trainName").text=train.Name
 
 $("#submitButton").on("click", function(){
+
   train.Name=$("#trainName").val().trim();
   train.Destination=$("#trainDestination").val().trim();
   train.Frequency=$("#trainFrequency").val().trim();
@@ -50,8 +51,7 @@ $("#submitButton").on("click", function(){
   database.ref().push({
     trainName: train.Name,
     trainDestination: train.Destination,
-    trainFrequency: train.Frequency,
-    trainNext: train.nextTime
+    trainFrequency: train.Frequency
   });
   $("#trainName").val("");
   $("#trainDestination").val("");
