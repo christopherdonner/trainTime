@@ -11,7 +11,8 @@ function appendTable(){
   var trainNameTd=$("<td>").text(train.Name);
   var trainDestinationTd=$("<td>").text(train.Destination)
   var trainFrequencyTd=$("<td>").text(train.Frequency)
-  row.append(trainNameTd, trainDestinationTd, trainFrequencyTd)
+  var trainNextTrainTd=$("<td>")/text(train.nextTime)
+  row.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextTrainTd)
   tableBody.append(row)
 }
 
@@ -28,11 +29,14 @@ function appendTable(){
 
 var database = firebase.database();
 
-/*
+
 database.ref().on("value", function(snapshot) {
 train.Name=snapshot.val().trainName;
+train.Frequency=snapshot.val().trainFrequency;
+train.Destination=snapshot.val().trainDestination;
+train.nextTime=snapshot.val().trainNextTrain;
 })
-*/
+
 
 //$("#trainName").text=train.Name
 
@@ -64,3 +68,17 @@ $("#submitButton").on("click", function(){
   })
  
 
+  database.ref().on("value", function(snapshot) {
+    train.Name=snapshot.val().trainName;
+    train.Frequency=snapshot.val().trainFrequency;
+    train.Destination=snapshot.val().trainDestination;
+    train.nextTime=snapshot.val().trainNextTrain;
+    })
+
+    dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+      // Change the HTML to reflect
+      $("#trainName").text(snapshot.val().trainName);
+      $("#trainDestination").text(snapshot.val().trainDestination);
+      $("#trainFrequency").text(snapshot.val().trainFrequency);
+      $("#train2").text(snapshot.val().comment);
+    });
