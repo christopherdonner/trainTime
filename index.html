@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <title>Train Time!</title>
 </head>
 
@@ -23,13 +22,12 @@
         </header>
         <div class="card">
             <div class="card-title">
-                <h2>Train Schedule:</h2>
+                Train Schedule
             </div>
             <div class="card-body">
-                <div class="container" id="trainSchedule">
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
-                        <table style="margin:10px; width:100%" id="trainSchedule">
+                        <table style="margin:10px" id="trainSchedule">
                             <tr>
                                 <th>
                                     Train Name
@@ -66,7 +64,6 @@
                             </tr>
                         </table>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -89,8 +86,8 @@
                     <input id="trainFrequency" type="text" class="form-control" placeholder="Frequency">
                 </div>
                 <div class="form-group">
-                        <label for="trainFrequency">Next Train (HH:mm)</label>
-                        <input id="trainFrequency" type="text" class="form-control" placeholder="Next departure">
+                    <label for="trainNext">Next Train (HH:mm)</label>
+                    <input id="trainNext" type="time" class="form-control" placeholder="HH:mm">
                 </div>
             </form>
         </div>
