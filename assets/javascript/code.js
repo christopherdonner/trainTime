@@ -1,10 +1,19 @@
 var train = {
-    var: Name,
-    var: Destination,
-    var: Frequency
+    Name: "",
+    Destination: "",
+    Frequency: 0,
+    nextTime: 0
 }
 
-
+function appendTable(){
+  var tableBody=$("#trainSchedule")
+  var row=$("<tr>")
+  var trainNameTd=$("<td>").text(train.Name);
+  var trainDestinationTd=$("<td>").text(train.Destination)
+  var trainFrequencyTd=$("<td>").text(train.Frequency)
+  row.append(trainNameTd, trainDestinationTd, trainFrequencyTd)
+  tableBody.append(row)
+}
 
   // Initialize Firebase
   var config = {
@@ -19,18 +28,39 @@ var train = {
 
 var database = firebase.database();
 
-// This function is run whenever the user presses a key.
-document.onkeyup = function(event) {
+/*
+database.ref().on("value", function(snapshot) {
+train.Name=snapshot.val().trainName;
+})
+*/
 
+//$("#trainName").text=train.Name
 
+$("#submitButton").on("click", function(){
+  
+    train.Name=$("#trainName").val().trim();
+    train.Destination=$("#trainDestination").val().trim();
+    train.Frequency=$("#trainFrequency").val().trim();
+    console.log(train.Name)
+    console.log(train.Destination)
+    console.log(train.Frequency)
+    //set current values in firebase
+    database.ref().push({
+      trainName: train.Name,
+      trainDestination: train.Destination,
+      trainFrequency: train.Frequency
+    });
+    $("#trainName").val("");
+    $("#trainDestination").val("");
+    $("#trainFrequency").val("");
     
-    // Reworked our code from last step to use "else if" instead of lots of if statements.
-    database.ref().set({
-        trainName: train.Name,
-
-        //player2Guess: p2Guess
-      });
+    var tableBody=$("#trainSchedule")
+    var row=$("<tr>")
+    var trainNameTd=$("<td>").text(train.Name);
+    var trainDestinationTd=$("<td>").text(train.Destination)
+    var trainFrequencyTd=$("<td>").text(train.Frequency)
+    row.append(trainNameTd, trainDestinationTd, trainFrequencyTd)
+    tableBody.append(row)
+  })
  
-    }
-}
 
