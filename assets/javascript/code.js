@@ -42,7 +42,7 @@ database.ref().on("child_added", function(childSnapshot) {
   console.log(childSnapshot.val().trainNextTime)
   train.Name=childSnapshot.val().trainName;
   train.Destination=childSnapshot.val().trainDestination;
-  train.Frequency=childSnapshot.val().trainDestination;
+  train.Frequency=childSnapshot.val().trainFrequency;
   train.nextTime=childSnapshot.val().trainNextTime;
 
   appendTable();
@@ -81,5 +81,5 @@ database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functi
   $("#trainName").text(snapshot.val().trainName);
   $("#trainDestination").text(snapshot.val().trainDestination);
   $("#trainFrequency").text(snapshot.val().trainFrequency);
-  $("#comment-display").text(snapshot.val().trainNextTime);
+  $("#trainNext").text(snapshot.val().trainNextTime);
 });
