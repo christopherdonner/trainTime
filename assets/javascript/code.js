@@ -35,10 +35,23 @@ train.Name=snapshot.val().trainName;
 })
 */
 
+database.ref().on("child_added", function(childSnapshot) {
+  console.log(childSnapshot.val().trainName)
+  console.log(childSnapshot.val().trainDestination)
+  console.log(childSnapshot.val().trainFrequency)
+  console.log(childSnapshot.val().trainNextTime)
+  train.Name=childSnapshot.val().trainName;
+  train.Destination=childSnapshot.val().trainDestination;
+  train.Frequency=childSnapshot.val().trainDestination;
+  train.nextTime=childSnapshot.val().trainNextTime;
+
+  appendTable();
+})
+
 //$("#trainName").text=train.Name
 
 $("#submitButton").on("click", function(){
-
+  event.preventDefault();
   train.Name=$("#trainName").val().trim();
   train.Destination=$("#trainDestination").val().trim();
   train.Frequency=$("#trainFrequency").val().trim();
@@ -51,12 +64,22 @@ $("#submitButton").on("click", function(){
   database.ref().push({
     trainName: train.Name,
     trainDestination: train.Destination,
-    trainFrequency: train.Frequency
+    trainFrequency: train.Frequency,
+    trainNextTime: train.nextTime,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
   $("#trainName").val("");
   $("#trainDestination").val("");
   $("#trainFrequency").val("");
   $("#trainNext").val("");
   
-appendTable();
+//appendTable();
 })
+
+database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+  // Change the HTML to reflect
+  $("#trainName").text(snapshot.val().trainName);
+  $("#trainDestination").text(snapshot.val().trainDestination);
+  $("#trainFrequency").text(snapshot.val().trainFrequency);
+  $("#comment-display").text(snapshot.val().trainNextTime);
+});
