@@ -1,3 +1,5 @@
+var currentTime=moment().local().format("HH:mm")
+
 var train = {
   Name: "",
   Destination: "",
@@ -5,17 +7,28 @@ var train = {
   nextTime: 0
 }
 
+//clock
+console.log(moment().local().format("HH:mm"))
+setInterval(function(){$("#trainClock").text(moment())}, 1000)
+
 function appendTable(){
+//$("#trainClock").text(currentTime)
 var tableBody=$("#trainSchedule")
 var row=$("<tr>")
 var trainNameTd=$("<td>").text(train.Name);
 var trainDestinationTd=$("<td>").text(train.Destination);
 var trainFrequencyTd=$("<td>").text(train.Frequency);
-var trainNextTd=$("<td>").text(train.nextTime);
-row.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextTd)
+var trainNextTd=$("<td>").text(moment(train.nextTime, "hh:mm"));
+var trainMinutesUntilTd=$("<td>").text(parseInt(moment(currentTime).diff(moment(train.nextTime), "minutes")))
+
+row.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextTd, trainMinutesUntilTd)
 tableBody.append(row)
 }
 
+//console.log(currentTime.format())
+//console.log(moment.utc(currentTime).format("HH:mm"))
+console.log(moment().diff(moment(train.nextTime), "minutes"))
+//console.log(moment.diff())
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyDe2lhHx6iXmM19ps-i6esAg_Q-rYLf_gk",
@@ -44,10 +57,12 @@ database.ref().on("child_added", function(childSnapshot) {
   train.Destination=childSnapshot.val().trainDestination;
   train.Frequency=childSnapshot.val().trainFrequency;
   train.nextTime=childSnapshot.val().trainNextTime;
-
+  console.log(moment().diff(moment(train.nextTime), "minutes"))
+  console.log(currentTime)
   appendTable();
 })
 
+//$("#trainClock").text(currentTime)
 //$("#trainName").text=train.Name
 
 $("#submitButton").on("click", function(){
@@ -56,6 +71,8 @@ $("#submitButton").on("click", function(){
   train.Destination=$("#trainDestination").val().trim();
   train.Frequency=$("#trainFrequency").val().trim();
   train.nextTime=$("#trainNext").val().trim();
+  //train.nextTime=moment(train.nextTime).format("HH:mm")
+  console.log(train.nextTime)
   console.log(train.Name)
   console.log(train.Destination)
   console.log(train.Frequency)
@@ -76,7 +93,7 @@ $("#submitButton").on("click", function(){
 //appendTable();
 })
 
-database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+database.ref().orderByChild("dateAdded").on("child_added", function(snapshot) {
   // Change the HTML to reflect
   $("#trainName").text(snapshot.val().trainName);
   $("#trainDestination").text(snapshot.val().trainDestination);
