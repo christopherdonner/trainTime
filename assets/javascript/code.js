@@ -21,10 +21,7 @@ function appendTable() {
   train.nextTime
   var trainNextTd = $("<td>").text(moment(train.nextTime, "HH:mm"));
   var trainTimeEpoch = moment(train.nextTime).unix()
-  console.log(`epoch train time: ${trainTimeEpoch}`)
-  console.log(moment().unix())
   train.timeUntil = moment().unix() - trainTimeEpoch
-  console.log(train.timeUntil / 60)
   var trainMinutesUntilTd = $("<td>").text((Math.floor(train.timeUntil / 60) - 525600)*(-1))
   row.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextTd, trainMinutesUntilTd)
   tableBody.append(row)
