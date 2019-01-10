@@ -19,12 +19,12 @@
         <header>
             <div class="jumbotron" style="text-align:center">
                 <h1>Train Time is Anytime</h1>
+                <div id="trainClock"></div>
             </div>
-            <div id="trainClock"></div>
         </header>
         <div class="card">
             <div class="card-title">
-                Train Schedule
+                Train Schedule:
             </div>
             <div class="card-body">
                 <div class="container">
@@ -49,19 +49,14 @@
                             </tr>
                             <tr>
                                 <td>
-                                    GO Train
                                 </td>
                                 <td>
-                                    Toronto
                                 </td>
                                 <td>
-                                    90
                                 </td>
                                 <td>
-                                    15:45
                                 </td>
                                 <td>
-                                    15
                                 </td>
                             </tr>
                         </table>
@@ -74,6 +69,7 @@
             <div class="card-title">
                 Add Train
             </div>
+            <div class="card-body">
             <form>
                 <div class="form-group">
                     <label for="trainName">Train Name</label>
@@ -84,17 +80,19 @@
                     <input id="trainDestination" type="text" class="form-control" placeholder="Destintation">
                 </div>
                 <div class="form-group">
+                    <label for="trainNext">First Train Time (HH:mm)</label>
+                    <input id="trainNext" type="time" class="form-control" placeholder="HH:mm">
+                </div>
+                <div class="form-group">
                     <label for="trainFrequency">Frequency (minutes)</label>
                     <input id="trainFrequency" type="text" class="form-control" placeholder="Frequency">
                 </div>
-                <div class="form-group">
-                    <label for="trainNext">Next Train (HH:mm)</label>
-                    <input id="trainNext" type="time" class="form-control" placeholder="HH:mm">
-                </div>
             </form>
         </div>
+        </div>
         <div class="row">
-            <button class="btn btn-primary" id="submitButton">
+            <br><br>
+            <button class="btn btn-secondary" id="submitButton">
                 Submit
             </button>
         </div>
