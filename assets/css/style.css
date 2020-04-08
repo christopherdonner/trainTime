@@ -2,6 +2,14 @@
     margin: 10px;
 }
 
+.jumbotron {
+    height: 110px;
+    padding: 20px
+}
+button {
+    margin-left: 16px
+}
+
 .card-title {
     background-color: powderblue
 }
