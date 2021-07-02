@@ -13,3 +13,15 @@ button {
 .card-title {
     background-color: powderblue
 }
+
+tr:nth-child(odd) {
+    background-color: rgb(231, 231, 231);
+    transition: background-color 1s;
+}
+
+tr:hover {
+    background-color: rebeccapurple;
+    /* font-weight: bold; */
+    transition: background-color 1s;
+    color: yellow
+}
